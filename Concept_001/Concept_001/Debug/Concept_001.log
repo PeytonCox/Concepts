@@ -1,0 +1,6 @@
+﻿  main.cpp
+c:\users\pcox\documents\visual studio 2017\projects\concept_001\concept_001\main.cpp(64): warning C4552: '>>': operator has no effect; expected operator with side-effect
+c:\users\pcox\documents\visual studio 2017\projects\concept_001\concept_001\main.cpp(44): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(343): note: see declaration of 'strncpy'
+  Concept_001.vcxproj -> c:\users\pcox\documents\visual studio 2017\Projects\Concept_001\Debug\Concept_001.exe
+  Concept_001.vcxproj -> c:\users\pcox\documents\visual studio 2017\Projects\Concept_001\Debug\Concept_001.pdb (Partial PDB)
