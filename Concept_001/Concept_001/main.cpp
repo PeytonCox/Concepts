@@ -17,20 +17,22 @@ int main() {
 	string returnData;
 	string uCrypt;
 	string eKey = "";
-	//char test = 'a';
-	//char test2 = test + 1;
-	
-	//test
+
+	//This generates each individal number that then becomes eKey (The actual encryption key)
 	for (int i = 0; i < 24; i++) {
 		eKey += to_string(KeyGen());
 	}
+
+	//Print out the encryption key to later decrypt the string
 	cout << "Your encryption key, **KEEP THIS**:  " << eKey << endl;
 
-	cout << "Enter in a string to be 'encrypted' (No +'s): ";
+	cout << "Enter in a string to be 'encrypted':  ";
 	getline(cin, userInput);
 
+	cout << "-=ENCRYPTION BEGIN=-" << endl; //DEBUG
 	Encrypt(eKey, userInput, returnData);
-	uCrypt = Decrypt(eKey, returnData);
+	cout << "-=DECRYPTION BEGIN=-" << endl;
+	uCrypt = Decrypt(eKey, returnData); //DEBUG
 
 	cout << endl << "Here is your encryped string :  " << returnData << endl;
 	cout << endl << "Here is the unencrypted string: " << uCrypt << endl;
@@ -41,15 +43,8 @@ int main() {
 void Encrypt(string eKey, string data, string& returnData) {
 
 	char backLetter;
-	char tempLetter;
 	string eKeyBackup = eKey;
 	int currKey = NULL;
-
-	//Convert the string into a char array
-	//>>>>>>>>>>>>COME BACK TO THIS<<<<<<<<<<<<
-	/*char cArray[1024];
-	strncpy(cArray, data.c_str(), sizeof(cArray));
-	cArray[sizeof(cArray) - 1] = 0;*/
 
 	while (data.length() > 0) {
 
@@ -57,29 +52,18 @@ void Encrypt(string eKey, string data, string& returnData) {
 			eKey = eKeyBackup;
 		}
 
-		/*if (data.back() == ' ') {
-			data.back() = '+';
-			//backLetter = '+';
-			backLetter = data.back();
-			data.pop_back();
-		}*/
+		backLetter = data.back();
 
-		//else {
-			//backLetter = scanf(" %[^\t\n]s", &data.back());
-			backLetter = data.back();
+		cout << "backLetter = " << backLetter << endl; //DEBUG
+		data.pop_back();
 
-			cout << "backLetter = " << backLetter << endl; //DEBUG
-			data.pop_back();
-
-			eKey.back() >> currKey;
-			backLetter = backLetter + eKey.back();
-			cout << "currKey = " << currKey << ", eKey.back() = " << eKey.back() << ", encryped letter = " << backLetter << ", data.length = " << data.length() << ", Run: " << runCount << endl; //DEBUG
-			eKey.pop_back();
-			runCount++; //Increase time ran by 1
-		//}
+		eKey.back() >> currKey;
+		backLetter = backLetter + eKey.back();
+		cout << "currKey = " << currKey << ", eKey.back() = " << eKey.back() << ", encryped letter = " << backLetter << ", data.length = " << data.length() << ", Run: " << runCount << endl; //DEBUG
+		eKey.pop_back();
+		runCount++; //Increase time ran by 1
 		
-		tempLetter = backLetter;
-		returnData += tempLetter;
+		returnData += backLetter;
 
 	}
 
@@ -94,16 +78,23 @@ int KeyGen() {
 	return key;
 }
 
-string Decrypt(string eKey, string uCrypt) {
+string Decrypt(string eKey, string reverse) {
 
 	char backLetter;
-	char tempLetter;
-	string eKeyBackup = "";
+	string eKeyBackup = eKey;
+	string uCrypt;
 	string uCrypted;
+	//string reverse;
 	int currKey = NULL;
 
-	eKeyBackup += eKey.back(); 
-	eKey.pop_back();
+	//reset runCount to track decryption runs
+	runCount = 1;
+
+	while (reverse.length() > 0){
+		uCrypt += reverse.back();
+		reverse.pop_back();
+	}
+
 
 	while (uCrypt.length() > 0) {
 
@@ -118,16 +109,20 @@ string Decrypt(string eKey, string uCrypt) {
 
 		eKey.back() >> currKey;
 		backLetter = backLetter - eKey.back();
-		cout << "currKey = " << currKey << ", eKey.back() = " << eKey.back() << ", encryped letter = " << backLetter << ", data.length = " << uCrypt.length() << ", Run: " << runCount << endl; //DEBUG
+		cout << "currKey = " << currKey << ", eKey.back() = " << eKey.back() << ", unencryped letter = " << backLetter << ", data.length = " << uCrypt.length() << ", Run: " << runCount << endl; //DEBUG
 		eKey.pop_back();
 		runCount++; //Increase time ran by 1
-					//}
 
-		tempLetter = backLetter;
-		uCrypted += tempLetter;
+		uCrypted += backLetter;
 
 	}
 
+	//This is needed to reverse the unencryped string because it is currently backwards
+	while (uCrypted.length() > 0) {
+		reverse += uCrypted.back();
+		uCrypted.pop_back(); 
+	}
 
-	return uCrypted; //return NULL for now
+
+	return reverse; //Returns the unencrypted string
 }
