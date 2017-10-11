@@ -1,4 +1,6 @@
 ﻿  main.cpp
-c:\users\pcox\documents\visual studio 2017\projects\concept_001\concept_001\main.cpp(57): warning C4552: '>>': operator has no effect; expected operator with side-effect
-  Concept_001.vcxproj -> c:\users\pcox\documents\visual studio 2017\Projects\Concept_001\x64\Debug\Concept_001.exe
-  Concept_001.vcxproj -> c:\users\pcox\documents\visual studio 2017\Projects\Concept_001\x64\Debug\Concept_001.pdb (Partial PDB)
+c:\users\pcox\documents\visual studio 2017\projects\concept_001\concept_001\main.cpp(14): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\pcox\documents\visual studio 2017\projects\concept_001\concept_001\main.cpp(74): warning C4552: '>>': operator has no effect; expected operator with side-effect
+c:\users\pcox\documents\visual studio 2017\projects\concept_001\concept_001\main.cpp(119): warning C4552: '>>': operator has no effect; expected operator with side-effect
+  Concept_001.vcxproj -> C:\Users\pcox\documents\visual studio 2017\Projects\Concept_001\x64\Debug\Concept_001.exe
+  Concept_001.vcxproj -> C:\Users\pcox\documents\visual studio 2017\Projects\Concept_001\x64\Debug\Concept_001.pdb (Partial PDB)

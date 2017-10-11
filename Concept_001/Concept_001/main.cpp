@@ -1,16 +1,21 @@
 #include <string>
 #include <math.h>
 #include <iostream>
+#include <time.h>
 using namespace std;
 
 void Encrypt(string, string, string&);
 int KeyGen();
-string Decrypt();
+int runCount = 1; //For debugging how many times the while loop has run
+string Decrypt(string, string);
 
 int main() {
 
+	srand(time(NULL)); //Initialize the seed
+
 	string userInput;
 	string returnData;
+	string uCrypt;
 	string eKey = "";
 	//char test = 'a';
 	//char test2 = test + 1;
@@ -22,12 +27,13 @@ int main() {
 	cout << "Your encryption key, **KEEP THIS**:  " << eKey << endl;
 
 	cout << "Enter in a string to be 'encrypted' (No +'s): ";
-	cin >> userInput;
+	getline(cin, userInput);
 
 	Encrypt(eKey, userInput, returnData);
+	uCrypt = Decrypt(eKey, returnData);
 
 	cout << endl << "Here is your encryped string :  " << returnData << endl;
-
+	cout << endl << "Here is the unencrypted string: " << uCrypt << endl;
 	cin >> eKey;
 	return NULL;
 }
@@ -51,24 +57,27 @@ void Encrypt(string eKey, string data, string& returnData) {
 			eKey = eKeyBackup;
 		}
 
-		if (data.back() == ' ') {
-			backLetter = '+';
+		/*if (data.back() == ' ') {
+			data.back() = '+';
+			//backLetter = '+';
+			backLetter = data.back();
 			data.pop_back();
-		}
+		}*/
 
-		else {
+		//else {
+			//backLetter = scanf(" %[^\t\n]s", &data.back());
 			backLetter = data.back();
 
 			cout << "backLetter = " << backLetter << endl; //DEBUG
 			data.pop_back();
 
 			eKey.back() >> currKey;
-			cout << "currKey = " << currKey << ", eKey.back() = " << eKey.back() << endl; //DEBUG
 			backLetter = backLetter + eKey.back();
+			cout << "currKey = " << currKey << ", eKey.back() = " << eKey.back() << ", encryped letter = " << backLetter << ", data.length = " << data.length() << ", Run: " << runCount << endl; //DEBUG
 			eKey.pop_back();
-		}
+			runCount++; //Increase time ran by 1
+		//}
 		
-
 		tempLetter = backLetter;
 		returnData += tempLetter;
 
@@ -85,8 +94,40 @@ int KeyGen() {
 	return key;
 }
 
-string Decrypt() {
+string Decrypt(string eKey, string uCrypt) {
+
+	char backLetter;
+	char tempLetter;
+	string eKeyBackup = "";
+	string uCrypted;
+	int currKey = NULL;
+
+	eKeyBackup += eKey.back(); 
+	eKey.pop_back();
+
+	while (uCrypt.length() > 0) {
+
+		if (eKey.length() == 0) {
+			eKey = eKeyBackup;
+		}
+
+		backLetter = uCrypt.back();
+
+		cout << "backLetter = " << backLetter << endl; //DEBUG
+		uCrypt.pop_back();
+
+		eKey.back() >> currKey;
+		backLetter = backLetter - eKey.back();
+		cout << "currKey = " << currKey << ", eKey.back() = " << eKey.back() << ", encryped letter = " << backLetter << ", data.length = " << uCrypt.length() << ", Run: " << runCount << endl; //DEBUG
+		eKey.pop_back();
+		runCount++; //Increase time ran by 1
+					//}
+
+		tempLetter = backLetter;
+		uCrypted += tempLetter;
+
+	}
 
 
-	return NULL; //return NULL for now
+	return uCrypted; //return NULL for now
 }
