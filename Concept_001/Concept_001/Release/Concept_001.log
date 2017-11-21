@@ -1,6 +1,0 @@
-﻿  main.cpp
-main.cpp(57): warning C4552: '>>': operator has no effect; expected operator with side-effect
-  Generating code
-  All 162 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Finished generating code
-  Concept_001.vcxproj -> c:\users\pcox\documents\visual studio 2017\Projects\Concept_001\Release\Concept_001.exe
